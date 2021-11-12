@@ -32,6 +32,8 @@ public class GameScreenController {
 
     @FXML
     protected void initialize() {
+    	game.getTimer().startTimer(timerField);
+
     	boardRep.getChildren().add(game.getBoard().boardRepresentation());
 
     	level.setText("Level: ");
@@ -51,8 +53,6 @@ public class GameScreenController {
     	targetScoreField.setEditable(false);
 
     	timer.setText("Time: ");
-    	timerField.setText("05:00");
-    	timerField.setEditable(false);
     }
 
     protected void update() {
@@ -66,8 +66,6 @@ public class GameScreenController {
 		regionScoreField.setText(game.getRegionScore().getScore() + "");
 
 		targetScoreField.setText(game.getTargetScore().getScore() + "");
-
-		timerField.setText("05:00");
 	}
 	
 	/**
@@ -132,7 +130,7 @@ public class GameScreenController {
 
 			game.setBoard(new Board(10));
 			game.updateRegionScore();			
-			this.initialize();
+			this.update();
 		}
     }
 }

@@ -26,6 +26,7 @@ public class Game {
 		totalScore = new Score(0);
 		regionScore = new Score(gameBoard.computeRegionScore());
 		targetScore = new TargetScore(level.getTarget());
+		timer = Timer.getInstance();
 	}
 	
 	public static Game getInstance() {
@@ -37,6 +38,7 @@ public class Game {
 	
 	public void resetGame() {
 		instance = null;
+		timer.resetTimer();
 	}
 	
 	public void start() {
