@@ -25,6 +25,7 @@ public class ViewController {
 		
 		window.setScene(newScene);
 		window.show();
+		parent.requestFocus();
 	}
 	
 	/**
