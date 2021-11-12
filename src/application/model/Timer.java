@@ -95,6 +95,8 @@ public class Timer {
 	}
 
 	public void resumeTimer() {
+		timerField.setText(Timer.this.getTimeString(timeSeconds));
+		timerField.setEditable(false);
 		timeline.play();
 	}
 
