@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -23,17 +24,30 @@ public class GameScreenController {
 	
 	@FXML
 	private Label level, totalScore, regionScore, targetScore, timer, help;
+
+	@FXML
+	private TextField levelField, totalScoreField, regionScoreField, targetScoreField, timerField;
 	
 	private Game game = Game.getInstance();
 
     @FXML
     protected void initialize() {
     	boardRep.getChildren().add(game.getBoard().boardRepresentation());
-    	level.setText("Level: " + game.getLevel().getLevel());
-    	totalScore.setText("Total Score: " + game.getTotalScore().getScore());
-    	regionScore.setText("Region Score: " + game.getRegionScore().getScore());
-    	targetScore.setText("Target Score: " + game.getTargetScore().getScore());
-    	timer.setText("Time: 05:00");
+
+    	level.setText("Level: ");
+    	levelField.setText(game.getLevel().getLevel() + "");
+
+    	totalScore.setText("Score: ");
+    	totalScoreField.setText(game.getTotalScore().getScore() + "");
+
+    	regionScore.setText("Region: ");
+    	regionScoreField.setText(game.getRegionScore().getScore() + "");
+
+    	targetScore.setText("Target: ");
+    	targetScoreField.setText(game.getTargetScore().getScore() + "");
+
+    	timer.setText("Time: ");
+    	timerField.setText("05:00");
     }
 	
 	/**
