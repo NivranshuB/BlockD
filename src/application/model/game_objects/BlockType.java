@@ -1,4 +1,5 @@
-package game.game_logic;
+package application.model.game_objects;
+
 /**
  * BlockType enum class represents all the possible types a Block instance can be. 
  * This includes:
