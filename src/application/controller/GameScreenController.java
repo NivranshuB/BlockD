@@ -32,7 +32,12 @@ public class GameScreenController {
 
     @FXML
     protected void initialize() {
-    	game.getTimer().startTimer(timerField);
+    	game.getTimer().setTimerField(timerField);
+    	if (game.getTimer().getSeconds() == 0) {//if time is 0 then timer has not been started yet
+			game.getTimer().startTimer();
+		} else {
+    		game.getTimer().resumeTimer();
+		}
 
     	boardRep.getChildren().add(game.getBoard().boardRepresentation());
 
@@ -72,6 +77,7 @@ public class GameScreenController {
 	 * Changes the scene from the game screen to the home menu scene.
 	 */
 	public void homeButtonPressed(ActionEvent event) throws IOException {
+		game.getTimer().pauseTimer();
 		new ViewController().changeScene(event, "/application/view/MainMenu.fxml");
 	}
 	
@@ -79,6 +85,7 @@ public class GameScreenController {
 	 * Changes the scene from the home screen to the help menu screen.
 	 */
 	public void helpButtonPressed(ActionEvent event) throws IOException {
+		game.getTimer().pauseTimer();
 		new ViewController().changeScene(event, "/application/view/HelpScreen.fxml");
 	}
 

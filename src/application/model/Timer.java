@@ -25,6 +25,8 @@ public class Timer {
 
 	private int timeSeconds;
 
+	private TextField timerField;
+
 	private DecimalFormat formatter = new DecimalFormat("00");
 
 	private Timer() {}
@@ -40,7 +42,7 @@ public class Timer {
 	/**
 	 * Method which starts the count-down timer that decrements the timeSeconds every second.
 	 */
-	public void startTimer(TextField timerField) {
+	public void startTimer() {
 
 		if (timeline != null) {
 			timeline.stop();
@@ -79,13 +81,25 @@ public class Timer {
 
 		timeline.playFromStart();
 	}
-	
-	int getTime() {
-		return timeSeconds;
-	}
 
 	public void resetTimer() {
 		timerInstance = null;
+	}
+
+	public void pauseTimer() {
+		timeline.pause();
+	}
+
+	public void setTimerField(TextField timer) {
+		timerField = timer;
+	}
+
+	public void resumeTimer() {
+		timeline.play();
+	}
+
+	public int getSeconds() {
+		return timeSeconds;
 	}
 
 	private String getTimeString(int seconds) {
