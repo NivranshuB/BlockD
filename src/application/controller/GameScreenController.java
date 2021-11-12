@@ -56,6 +56,7 @@ public class GameScreenController {
     }
 
     protected void update() {
+    	boardRep.getChildren().clear();
 		boardRep.getChildren().add(game.getBoard().boardRepresentation());
 
 		levelField.setText(game.getLevel().getLevel() + "");
@@ -110,9 +111,12 @@ public class GameScreenController {
 		this.update();
     	
 		if (game.getTargetScore().getScore() <= 0) {
+
 			game.getLevel().setLevel(game.getLevel().getLevel() + 1);
+			levelField.setText(game.getLevel().getLevel() + "");
 			
 			game.setTargetScore(new TargetScore(game.getLevel().getTarget()));
+			targetScoreField.setText(game.getTargetScore().getScore() + "");
 			
             help.setText("Help: Target met, Leveling up!!!");
 		}
