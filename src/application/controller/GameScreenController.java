@@ -78,6 +78,7 @@ public class GameScreenController {
 	 */
 	public void homeButtonPressed(ActionEvent event) throws IOException {
 		game.getTimer().pauseTimer();
+		game.setStatus(true);
 		new ViewController().changeScene(event, "/application/view/MainMenu.fxml");
 	}
 	

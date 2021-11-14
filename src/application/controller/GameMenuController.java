@@ -1,11 +1,25 @@
 package application.controller;
 
+import java.awt.*;
 import java.io.IOException;
 
 import application.model.Game;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class GameMenuController {
+
+	@FXML
+	private Button continueButton;
+
+	@FXML
+	protected void initialize() {
+		if (!Game.getInstance().getStatus()) {
+			continueButton.setDisable(true);
+		}
+	}
+
 	/**
 	 * Changes the scene from the main menu scene to the game menu scene.
 	 */
@@ -18,6 +32,7 @@ public class GameMenuController {
 	 */
 	public void newGameButtonPressed(ActionEvent event) throws IOException {
 		Game.getInstance().resetGame();
+		Game.getInstance().setStatus(true);
 		new ViewController().changeScene(event, "/application/view/GameScreen.fxml");
 	}
 	

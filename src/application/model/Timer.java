@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
  */
 public class Timer {
 
-	private static int STARTTIME = 300;
+	private static int STARTTIME = 30;
 
 	private static Timer timerInstance;
 
@@ -69,6 +69,7 @@ public class Timer {
 							//do something when timer reaches 0
 							timerField.setText("GameOver");
 							timerField.setStyle("-fx-text-fill: black;");
+							gameOver();
 						} else if (timeSeconds < 30) {
 							timerField.setText(Timer.this.getTimeString(timeSeconds));
 							timerField.setStyle("-fx-text-fill: red;");
@@ -107,5 +108,10 @@ public class Timer {
 	private String getTimeString(int seconds) {
 		formatter = new DecimalFormat("00");
 		return formatter.format(seconds/60) + ":" + formatter.format(seconds%60);
+	}
+
+	private void gameOver() {
+		Game.getInstance().setStatus(false);
+
 	}
 }

@@ -18,7 +18,7 @@ public class Game {
 	private TargetScore targetScore;
 	private Level level;
 	private Timer timer;
-
+	private boolean ongoing;
 	
 	private Game() {
 		gameBoard = new Board(10);
@@ -27,6 +27,7 @@ public class Game {
 		regionScore = new Score(gameBoard.computeRegionScore());
 		targetScore = new TargetScore(level.getTarget());
 		timer = Timer.getInstance();
+		ongoing = false;
 	}
 	
 	public static Game getInstance() {
@@ -39,6 +40,7 @@ public class Game {
 	public void resetGame() {
 		instance = null;
 		timer.resetTimer();
+		ongoing = false;
 	}
 	
 	public void start() {
@@ -143,6 +145,14 @@ public class Game {
 	
 	public Level getLevel() {
 		return level;
+	}
+
+	public boolean getStatus() {
+		return ongoing;
+	}
+
+	public void setStatus(boolean status) {
+		ongoing = status;
 	}
 	
 }

@@ -11,7 +11,7 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="250.0" mnemonicParsing="false" onAction="#continueGameButtonPressed" prefHeight="55.0" prefWidth="225.0" text="Continue">
+            <Button fx:id="continueButton" layoutX="14.0" layoutY="250.0" mnemonicParsing="false" onAction="#continueGameButtonPressed" prefHeight="55.0" prefWidth="225.0" text="Continue">
                <font>
                   <Font name="Bell MT" size="20.0" />
                </font>
