@@ -199,10 +199,22 @@ public class Board {
 				} else {
 					if (blockArray[i][j].getType() == BlockType.Green) {
 						blockRep.setFill(Color.GREEN);
+						if (selectedRegion.getBlocks().size() > 1 &&
+								selectedRegion.getBlocks().contains(blockArray[i][j])) {
+							blockRep.setFill(Color.DARKGREEN);
+						}
 					} else if (blockArray[i][j].getType() == BlockType.Yellow) {
 						blockRep.setFill(Color.YELLOW);
+						if (selectedRegion.getBlocks().size() > 1 &&
+								selectedRegion.getBlocks().contains(blockArray[i][j])) {
+							blockRep.setFill(Color.rgb(180, 180, 10));
+						}
 					} else if (blockArray[i][j].getType() == BlockType.Red) {
 						blockRep.setFill(Color.RED);
+						if (selectedRegion.getBlocks().size() > 1 &&
+								selectedRegion.getBlocks().contains(blockArray[i][j])) {
+							blockRep.setFill(Color.rgb(171, 0, 0));
+						}
 					} else {
 						blockRep.setFill(Color.ANTIQUEWHITE);
 					}
