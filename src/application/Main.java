@@ -24,6 +24,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			ViewController.getInstance().setPrimaryWindow(primaryStage);
+			primaryStage.setMinHeight(600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

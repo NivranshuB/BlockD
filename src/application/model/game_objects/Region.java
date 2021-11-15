@@ -5,7 +5,7 @@ import java.util.List;
 public class Region {
 	
 	private List<Block> regionBlocks = new ArrayList<Block>();
-	private boolean[][] evaluated = new boolean[10][10];
+	private boolean[][] evaluated = new boolean[15][10];
 	private Block[][] blockSet;
 	
 	public Region(int i, int j, Block[][] boardBlocks) {
@@ -28,7 +28,7 @@ public class Region {
 		
 		regionBlocks.add(blockSet[i][j]);
 		
-		if (i < 9 && blockSet[i + 1][j] != null && blockSet[i][j].getType() == blockSet[i + 1][j].getType()) {
+		if (i < 14 && blockSet[i + 1][j] != null && blockSet[i][j].getType() == blockSet[i + 1][j].getType()) {
 			if ( evaluated[i + 1][j] == false) {
 				checkNeighbours(i + 1, j);
 			}

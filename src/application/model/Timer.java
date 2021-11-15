@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
  */
 public class Timer {
 
-	private int startTime = 300;
+	private int startTime = 120;
 
 	private static Timer timerInstance;
 

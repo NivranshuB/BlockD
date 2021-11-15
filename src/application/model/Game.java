@@ -22,7 +22,7 @@ public class Game {
 	private boolean ongoing;
 	
 	private Game() {
-		gameBoard = new Board(10);
+		gameBoard = new Board(15, 10);
 		level = new Level(1);
 		totalScore = new Score(0);
 		regionScore = new Score(gameBoard.computeRegionScore());
@@ -41,7 +41,7 @@ public class Game {
 	public void incrementLevel() {
 		level.increment();
 		targetScore.setScore(level.getTarget());
-		gameBoard = new Board(10);
+		//gameBoard = new Board(15, 10);
 		this.updateRegionScore();
 		timer.resetTimer();
 		timer = Timer.getInstance();

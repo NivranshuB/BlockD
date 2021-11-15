@@ -8,11 +8,11 @@ public class Cursor {
 	int maxY;
 	Region region;
 	
-	public Cursor(int boardSize) {
+	public Cursor(int height, int width) {
 		xPos = 0;
 		yPos = 0;
-		maxX = boardSize - 1;
-		maxY = boardSize - 1;
+		maxX = width - 1;
+		maxY = height - 1;
 	}
 	
 	int getX() {

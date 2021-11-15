@@ -16,12 +16,12 @@ public class Board {
 	Cursor cursor;
 	private Region selectedRegion;
 	
-	public Board(int size) {
-		blockArray = new Block[size][size];
-		cursor = new Cursor(size);
+	public Board(int height, int width) {
+		blockArray = new Block[height][width];
+		cursor = new Cursor(height, width);
 		
-		for (int i = 0; i < blockArray[0].length; i++) {
-			for (int j = 0; j < blockArray.length; j++) {
+		for (int i = 0; i < blockArray.length; i++) {
+			for (int j = 0; j < blockArray[0].length; j++) {
 				double randomValue = Math.random();
 				if (randomValue < 0.33) {
 					blockArray[i][j] = new Block(BlockType.Red, i, j);
@@ -120,16 +120,15 @@ public class Board {
 	 */
 	public void update() {
 		
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < blockArray[0].length; j++) {
 			Stack<Block> elements = new Stack<Block>();
-			for (int i = 0; i < 10; i++) {
-				//If an empty element exists then replace it with its above element Block and \
-				//let the above element be empty
+			for (int i = 0; i < blockArray.length; i++) {
+				//Add all non empty blocks to stack with the blocks at the bottom at the top of the stack
 				if (blockArray[i][j] != null) {
 					elements.push(blockArray[i][j]);
 				}
 			}
-			for (int k = 9; k >= 0; k--) {
+			for (int k = blockArray.length - 1; k >= 0; k--) {
 				if (elements.size() > 0) {
 					blockArray[k][j] = elements.pop();
 				} else {
@@ -138,9 +137,9 @@ public class Board {
 			}
 		}
 		
-		for (int j = 0; j < 10; j++) {
-			for (int i = j; i < 10; i++) {
-				if (blockArray[9][j] == null) {
+		for (int j = 0; j < blockArray[0].length; j++) {
+			for (int i = j; i < blockArray[0].length; i++) {
+				if (blockArray[blockArray.length - 1][j] == null) {
 					removeColumn(j);
 				} else {
 					break;
@@ -149,8 +148,8 @@ public class Board {
 			
 		}
 		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < blockArray.length; i++) {
+			for (int j = 0; j < blockArray[0].length; j++) {
 				if (blockArray[i][j] != null) {
 					blockArray[i][j].setRow(i);
 					blockArray[i][j].setCol(j);
@@ -161,26 +160,27 @@ public class Board {
 	}
 	
 	private void removeColumn(int col) {
-		for (int k = col + 1; k < 10; k++) {
-			for (int i = 0; i < 10; i++) {
+		for (int k = col + 1; k < blockArray[0].length; k++) {
+			for (int i = 0; i < blockArray.length; i++) {
 				blockArray[i][k - 1] = blockArray[i][k];
 			}
 		}
-		for (int l = 0; l < 10; l++) {
-			blockArray[l][9] = null;
+		for (int l = 0; l < blockArray.length; l++) {
+			blockArray[l][blockArray[0].length - 1] = null;
 		}
 	}
 	
 	public boolean complete() {
+		boolean boardIncomplete = true;
 		for (int i = blockArray.length - 1; i >= 0; i--) {
-			for (int j = 0; j < blockArray[0].length; j++) {
+			for (int j = 0; j < blockArray[0].length ; j++) {
 				if (blockArray[i][j] != null && new Region(i, j, blockArray).regionSize() > 1) {
-					return false;
+					boardIncomplete = false;
 				}
 			}
 		}
 		
-		return true;
+		return boardIncomplete;
 	}
 	
 	public GridPane boardRepresentation() {
@@ -188,10 +188,10 @@ public class Board {
 		GridPane boardRep = new GridPane();
 		boardRep.setPadding(new Insets(3));
 		
-		for (int i = 0; i < blockArray[0].length; i++) {
-			for (int j = 0; j < blockArray.length; j++) {
+		for (int i = 0; i < blockArray.length; i++) {
+			for (int j = 0; j < blockArray[0].length; j++) {
 				
-				Rectangle blockRep = new Rectangle(30, 30);
+				Rectangle blockRep = new Rectangle(21, 21);
 				blockRep.setStroke(Color.BEIGE);
 				
 				if (blockArray[i][j] == null) {

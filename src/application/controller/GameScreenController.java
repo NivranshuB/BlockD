@@ -138,7 +138,7 @@ public class GameScreenController {
 				game.getTargetScore().decreaseScore(1000);
 			}
 
-			game.setBoard(new Board(10));
+			game.setBoard(new Board(15, 10));
 			game.updateRegionScore();			
 			this.update();
 		}
