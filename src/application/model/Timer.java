@@ -1,12 +1,16 @@
 package application.model;
 
+import application.controller.ViewController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 /**
@@ -67,9 +71,14 @@ public class Timer {
 						//update timerLabel
 						if (timeSeconds <= 0) {
 							//do something when timer reaches 0
+							pauseTimer();
 							timerField.setText("GameOver");
 							timerField.setStyle("-fx-text-fill: black;");
-							gameOver();
+							try {
+								timeOut();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						} else if (timeSeconds < 30) {
 							timerField.setText(Timer.this.getTimeString(timeSeconds));
 							timerField.setStyle("-fx-text-fill: red;");
@@ -110,8 +119,18 @@ public class Timer {
 		return formatter.format(seconds/60) + ":" + formatter.format(seconds%60);
 	}
 
-	private void gameOver() {
+	private void timeOut() throws IOException {
 		Game.getInstance().setStatus(false);
 
+		// set alert type
+		Alert a = new Alert(Alert.AlertType.NONE);
+		a.setAlertType(Alert.AlertType.INFORMATION);
+		a.setTitle("Game over");
+		a.setContentText("Your score was " + Game.getInstance().getTotalScore().getScore());
+
+		// show the dialog
+		a.show();
+
+		ViewController.getInstance().changeScene("/application/view/MainMenu.fxml");
 	}
 }

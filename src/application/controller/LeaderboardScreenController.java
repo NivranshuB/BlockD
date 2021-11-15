@@ -9,6 +9,6 @@ public class LeaderboardScreenController {
 	 * Changes the scene from the main menu scene to the game menu scene.
 	 */
 	public void homeButtonPressed(ActionEvent event) throws IOException {
-		new ViewController().changeScene(event, "/application/view/MainMenu.fxml");
+		ViewController.getInstance().changeScene(event, "/application/view/MainMenu.fxml");
 	}
 }

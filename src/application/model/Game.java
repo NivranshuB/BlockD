@@ -2,6 +2,7 @@ package application.model;
 
 import java.util.Scanner;
 import application.model.game_objects.Board;
+import javafx.scene.control.TextField;
 
 /**
  * Class representing a playable instance of a 'Solo Game' object.
@@ -153,6 +154,20 @@ public class Game {
 
 	public void setStatus(boolean status) {
 		ongoing = status;
+	}
+
+	public void initializeTimer(TextField timerField) {
+		timer.setTimerField(timerField);
+		if (timer.getSeconds() == 0) {//if time is 0 then timer has not been started yet
+			timer.startTimer();
+		} else {
+			timer.resumeTimer();
+		}
+	}
+
+	public void pauseTimer() {
+		timer.pauseTimer();
+		setStatus(true);
 	}
 	
 }

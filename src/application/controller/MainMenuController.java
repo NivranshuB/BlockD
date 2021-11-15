@@ -10,20 +10,20 @@ public class MainMenuController {
 	 * Changes the scene from the main menu scene to the game menu scene.
 	 */
 	public void soloGameButtonPressed(ActionEvent event) throws IOException {
-		new ViewController().changeScene(event, "/application/view/GameMenu.fxml");
+		ViewController.getInstance().changeScene(event, "/application/view/GameMenu.fxml");
 	}
 	
 	/**
 	 * Changes the scene from the main menu scene to the leaderboard scene.
 	 */
 	public void leaderboardButtonPressed(ActionEvent event) throws IOException {
-		new ViewController().changeScene(event, "/application/view/LeaderboardScreen.fxml");
+		ViewController.getInstance().changeScene(event, "/application/view/LeaderboardScreen.fxml");
 	}
 	
 	/**
 	 * Changes the scene from the main menu scene to the game menu scene.
 	 */
 	public void exitButtonPressed(ActionEvent event) throws IOException {
-		new ViewController().windowClose(event);
+		ViewController.getInstance().windowClose(event);
 	}
 }
