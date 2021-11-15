@@ -16,7 +16,7 @@ public class Level {
 		level = lvl;
 	}
 	
-	void increment() {
+	public void increment() {
 		 level++;
 	}
 	
@@ -31,4 +31,5 @@ public class Level {
 	public int getTarget() {
 		return targets[level - 1];
 	}
+
 }

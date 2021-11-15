@@ -37,6 +37,15 @@ public class Game {
 		}		
 		return instance;
 	}
+
+	public void incrementLevel() {
+		level.increment();
+		targetScore.setScore(level.getTarget());
+		gameBoard = new Board(10);
+		this.updateRegionScore();
+		timer.resetTimer();
+		timer = Timer.getInstance();
+	}
 	
 	public void resetGame() {
 		instance = null;
@@ -44,67 +53,67 @@ public class Game {
 		ongoing = false;
 	}
 	
-	public void start() {
-		
-		boolean gameOver = false;
-		
-		System.out.println("Welcome to BlockD!\n");
-		
-		while(!gameOver) {
-			
-			System.out.println("");
-			System.out.println("X========================================X");
-			System.out.println("Current level: " + level.getLevel());
-			System.out.println("Total Score: " + totalScore.getScore());
-			System.out.println("Current Region's Value: " + regionScore.getScore());
-			System.out.println("Target Score left: " + targetScore.getScore());
-			System.out.println("X========================================X");
-			
-			System.out.println(gameBoard);
-			
-			System.out.println("\nCommands: 'w' for up, 'a' for left, 's' for down, 'd' for right, 'b' for break, 'q' "
-					+ "for quit.\n");
-			
-			@SuppressWarnings("resource")
-			Scanner sc = new Scanner(System.in); //System.in is a standard input stream  
-			System.out.print("Enter a command: ");  
-			String command= sc.nextLine();              //reads string  
-			
-			if (command.equalsIgnoreCase("w")) {
-				gameBoard.move("w");
-			} else if (command.equalsIgnoreCase("a")) {
-				gameBoard.move("a");
-			} else if (command.equalsIgnoreCase("s")) {
-				gameBoard.move("s");
-			} else if (command.equalsIgnoreCase("d")) {
-				gameBoard.move("d");
-			} else if (command.equalsIgnoreCase("b")) {
-				this.updateScores();
-			} else if (command.equalsIgnoreCase("q")) {
-				gameOver = true;
-			} else {
-				System.out.println("Invalid command.");
-			}
-			
-			this.updateRegionScore();
-			
-			if (targetScore.getScore() <= 0) {
-				System.out.println("!!!!!!!!!!Level " + level.getLevel() + " complete!!!!!!!!!!\n");
-				level.setLevel(level.getLevel() + 1);
-				targetScore = new TargetScore(level.getTarget());
-				
-				System.out.println("Target score for level " + level.getLevel() + " is " + targetScore.getScore());
-				System.out.println("Good luck :)");
-			}
-			
-			if (gameBoard.complete()) {
-				System.out.println("\nGame complete. Reloading the game board!");
-				gameBoard = new Board(10);
-				regionScore = new Score(gameBoard.computeRegionScore());
-			}
-		}
-	
-	}
+//	public void start() {
+//
+//		boolean gameOver = false;
+//
+//		System.out.println("Welcome to BlockD!\n");
+//
+//		while(!gameOver) {
+//
+//			System.out.println("");
+//			System.out.println("X========================================X");
+//			System.out.println("Current level: " + level.getLevel());
+//			System.out.println("Total Score: " + totalScore.getScore());
+//			System.out.println("Current Region's Value: " + regionScore.getScore());
+//			System.out.println("Target Score left: " + targetScore.getScore());
+//			System.out.println("X========================================X");
+//
+//			System.out.println(gameBoard);
+//
+//			System.out.println("\nCommands: 'w' for up, 'a' for left, 's' for down, 'd' for right, 'b' for break, 'q' "
+//					+ "for quit.\n");
+//
+//			@SuppressWarnings("resource")
+//			Scanner sc = new Scanner(System.in); //System.in is a standard input stream
+//			System.out.print("Enter a command: ");
+//			String command= sc.nextLine();              //reads string
+//
+//			if (command.equalsIgnoreCase("w")) {
+//				gameBoard.move("w");
+//			} else if (command.equalsIgnoreCase("a")) {
+//				gameBoard.move("a");
+//			} else if (command.equalsIgnoreCase("s")) {
+//				gameBoard.move("s");
+//			} else if (command.equalsIgnoreCase("d")) {
+//				gameBoard.move("d");
+//			} else if (command.equalsIgnoreCase("b")) {
+//				this.updateScores();
+//			} else if (command.equalsIgnoreCase("q")) {
+//				gameOver = true;
+//			} else {
+//				System.out.println("Invalid command.");
+//			}
+//
+//			this.updateRegionScore();
+//
+//			if (targetScore.getScore() <= 0) {
+//				System.out.println("!!!!!!!!!!Level " + level.getLevel() + " complete!!!!!!!!!!\n");
+//				level.setLevel(level.getLevel() + 1);
+//				targetScore = new TargetScore(level.getTarget());
+//
+//				System.out.println("Target score for level " + level.getLevel() + " is " + targetScore.getScore());
+//				System.out.println("Good luck :)");
+//			}
+//
+//			if (gameBoard.complete()) {
+//				System.out.println("\nGame complete. Reloading the game board!");
+//				gameBoard = new Board(10);
+//				regionScore = new Score(gameBoard.computeRegionScore());
+//			}
+//		}
+//
+//	}
 	
 	public void updateRegionScore() {
 		regionScore = new Score(gameBoard.computeRegionScore());
@@ -168,6 +177,10 @@ public class Game {
 	public void pauseTimer() {
 		timer.pauseTimer();
 		setStatus(true);
+	}
+
+	public boolean levelComplete() {
+		return targetScore.getScore() <= 0;
 	}
 	
 }

@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
  */
 public class Timer {
 
-	private static int STARTTIME = 300;
+	private int startTime = 300;
 
 	private static Timer timerInstance;
 
@@ -55,7 +55,7 @@ public class Timer {
 		timerField.setText("05:00");
 		timerField.setEditable(false);
 
-		timeSeconds = STARTTIME;
+		timeSeconds = startTime;
 
 		//update timerLabel
 		timeline = new Timeline();
@@ -112,6 +112,10 @@ public class Timer {
 
 	public int getSeconds() {
 		return timeSeconds;
+	}
+
+	public void setStartTime(int newStartTime) {
+		startTime = newStartTime;
 	}
 
 	private String getTimeString(int seconds) {

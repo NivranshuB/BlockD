@@ -103,7 +103,12 @@ public class GameScreenController {
         	game.getBoard().move("d");
             break;
         case B:
-        	game.updateScores();
+			game.updateScores();
+        	if (game.levelComplete()) {
+				game.incrementLevel();
+				game.initializeTimer(timerField);
+				help.setText("Level complete... Moving to level " + game.getLevel().getLevel());
+			}
             break;
         default:
         	help.setText("Help: Invalid move, please try again");

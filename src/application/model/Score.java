@@ -21,7 +21,7 @@ public class Score {
 		value += increase;
 	}
 	
-	void setScore(int score) {
+	public void setScore(int score) {
 		value = score;
 	}
 	
