@@ -191,7 +191,7 @@ public class Board {
 		for (int i = 0; i < blockArray.length; i++) {
 			for (int j = 0; j < blockArray[0].length; j++) {
 				
-				Rectangle blockRep = new Rectangle(21, 21);
+				Rectangle blockRep = new Rectangle(23, 23);
 				blockRep.setStroke(Color.BEIGE);
 				
 				if (blockArray[i][j] == null) {

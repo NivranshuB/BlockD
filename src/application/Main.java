@@ -21,10 +21,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("view/MainMenu.fxml"));
-			Scene scene = new Scene(root,500,500);
+			Scene scene = new Scene(root,500,550);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			ViewController.getInstance().setPrimaryWindow(primaryStage);
-			primaryStage.setMinHeight(600);
+			primaryStage.setMinHeight(550);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

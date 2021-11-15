@@ -11,17 +11,17 @@
    <center>
       <Pane prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="69.0" layoutY="193.0" mnemonicParsing="false" onAction="#soloGameButtonPressed" prefHeight="57.0" prefWidth="353.0" text="Solo Game">
+            <Button layoutX="74.0" layoutY="193.0" mnemonicParsing="false" onAction="#soloGameButtonPressed" prefHeight="57.0" prefWidth="353.0" text="Solo Game">
                <font>
                   <Font name="Bell MT" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="68.0" layoutY="270.0" mnemonicParsing="false" onAction="#leaderboardButtonPressed" prefHeight="55.0" prefWidth="355.0" text="Leaderboard">
+            <Button layoutX="73.0" layoutY="269.0" mnemonicParsing="false" onAction="#leaderboardButtonPressed" prefHeight="55.0" prefWidth="355.0" text="Leaderboard">
                <font>
                   <Font name="Bell MT" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="68.0" layoutY="344.0" mnemonicParsing="false" onAction="#exitButtonPressed" prefHeight="52.0" prefWidth="355.0" text="Exit">
+            <Button layoutX="73.0" layoutY="344.0" mnemonicParsing="false" onAction="#exitButtonPressed" prefHeight="52.0" prefWidth="355.0" text="Exit">
                <font>
                   <Font size="20.0" />
                </font>
