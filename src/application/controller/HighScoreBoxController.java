@@ -47,5 +47,7 @@ public class HighScoreBoxController {
         System.out.println("Added leaderboard entry: Name = " + newEntry.getName() + ", Score = " +
                 newEntry.getScore() + ", Level = " + newEntry.getLevel());
         System.out.println(leaderboard);
+
+        ViewController.getInstance().changeScene("/application/view/LeaderboardScreen.fxml");
     }
 }

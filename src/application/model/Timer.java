@@ -155,7 +155,7 @@ public class Timer {
 
 	private void highscoreAlert() throws IOException{
 
-		ViewController.getInstance().changeScene("/application/view/LeaderboardScreen.fxml");
+//		ViewController.getInstance().changeScene("/application/view/LeaderboardScreen.fxml");
 		ViewController.getInstance().setOnGameScreen(false);
 
 		Game game = Game.getInstance();
