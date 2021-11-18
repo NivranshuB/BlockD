@@ -141,6 +141,12 @@ public class Timer {
 		if (leaderboard.qualifiesLeaderboard(score)) {
 			highscoreAlert();
 		} else {
+
+			ViewController.getInstance().changeScene("/application/view/GameMenu.fxml");
+			ViewController.getInstance().setOnGameScreen(false);
+
+			game.setStatus(false);
+
 			// set alert type
 			Alert a = new Alert(Alert.AlertType.NONE);
 			a.setAlertType(Alert.AlertType.INFORMATION);
