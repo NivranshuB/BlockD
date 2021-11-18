@@ -80,7 +80,7 @@ public class Leaderboard {
 
         GridPane leaderboardRep = new GridPane();
 
-        leaderboardRep.setHgap(60); //horizontal gap in pixels => that's what you are asking for
+        leaderboardRep.setHgap(90); //horizontal gap in pixels => that's what you are asking for
         leaderboardRep.setVgap(10); //vertical gap in pixels
         leaderboardRep.setPadding(new Insets(5, 10, 5, 10));
 
@@ -90,7 +90,12 @@ public class Leaderboard {
 
             LeaderboardEntry entry = entries.get(i);
 
-            Text nameLabel = new Text(entry.getName());
+            String name = entry.getName();
+            if (name.length() > 10) {
+                name = name.substring(0, 7) + "...";
+            }
+
+            Text nameLabel = new Text(name);
             Text scoreLabel = new Text(entry.getScore() + "");
             Text levelLabel = new Text(entry.getLevel() + "");
 
