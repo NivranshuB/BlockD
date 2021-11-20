@@ -6,6 +6,7 @@ import application.controller.ViewController;
 import application.model.Game;
 import application.model.game_objects.Board;
 import application.utility.ConfirmBox;
+import application.utility.DataRetriever;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +41,7 @@ public class Main extends Application {
 				boolean exit = ConfirmBox.displayConfirm("Game exit", "Are you sure you want to exit the game?");
 
 				if (exit) {
+					DataRetriever.saveAndExitGame();
 					primaryStage.close();
 				}
 				windowEvent.consume();

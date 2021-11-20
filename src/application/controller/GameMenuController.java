@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 
 import application.model.Game;
+import application.utility.DataRetriever;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

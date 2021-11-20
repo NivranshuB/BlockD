@@ -106,4 +106,8 @@ public class Leaderboard {
 
         return leaderboardRep;
     }
+
+    public List<LeaderboardEntry> getEntries() {
+        return entries;
+    }
 }

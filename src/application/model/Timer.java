@@ -100,6 +100,10 @@ public class Timer {
 		timeline.playFromStart();
 	}
 
+	public String toString() {
+		return timeSeconds + "";
+	}
+
 	public void resetTimer() {
 		timerInstance = null;
 	}
