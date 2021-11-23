@@ -70,20 +70,27 @@ public class DataRetriever {
      */
     public static void saveAndExitGame() {
 
-        String save_loc = System.getProperty("user.dir") + System.getProperty("file.separator") + "game_data";
-        Path pathCategoryData = Paths.get(save_loc);
+        String save_loc = System.getProperty("user.dir") + System.getProperty("file.separator") + "save_data";
+        String game_save_loc = save_loc + System.getProperty("file.separator") + "game_data";
+        String leaderboard_save_loc = save_loc + System.getProperty("file.separator") + "leaderboard_data";
 
-        deleteDirectory(new File(save_loc));
+        Path saveData = Paths.get(save_loc);
+        Path pathGameSaveData = Paths.get(game_save_loc);
+        Path leaderboardSaveData = Paths.get(leaderboard_save_loc);
+
+        deleteDirectory(new File(save_loc));//Delete existing app details that are saved
 
         try {
-            Files.createDirectories(pathCategoryData);
+            Files.createDirectories(saveData);
+            Files.createDirectories(pathGameSaveData);//Create a new folder for where game data will be saved
+            Files.createDirectories(leaderboardSaveData);//Create a new folder for where leaderboard data will be saved
         } catch (IOException e) {
             System.err.println("Failed to create directory!" + e.getMessage());
         }
 
         try {//Write data in leaderboard file
-            FileWriter leaderboardWriter = new FileWriter(save_loc + System.getProperty("file.separator") +
-                    "leaderboard");
+            FileWriter leaderboardWriter = new FileWriter(leaderboard_save_loc + System.getProperty("file.separator")
+                    + "leaderboard");
 
             Leaderboard leaderboard = Leaderboard.getInstance();
 
@@ -99,7 +106,8 @@ public class DataRetriever {
         Game gameToSave = Game.getInstance();
 
         try {//Write details for the game info barring the game board
-            FileWriter gameWriter = new FileWriter((save_loc + System.getProperty("file.separator") + "game_details"));
+            FileWriter gameWriter = new FileWriter((game_save_loc + System.getProperty("file.separator") +
+                    "game_details"));
 
             gameWriter.write("Level:" + gameToSave.getLevel().getLevel() + "\n");
             gameWriter.write("Total:" + gameToSave.getTotalScore().getScore() + "\n");
@@ -116,8 +124,8 @@ public class DataRetriever {
         Block[][] blocks = gameBoard.getBlockArray();
 
         try {//Write details of the game board
-            FileWriter boardWriter = new FileWriter(save_loc + System.getProperty("file.separator") +
-                    "game_board");
+            FileWriter boardWriter = new FileWriter(game_save_loc + System.getProperty("file.separator")
+                    + "game_board");
 
             for (int i = 0; i < blocks.length; i++) {
                 for (int j = 0; j < blocks[0].length; j++) {
