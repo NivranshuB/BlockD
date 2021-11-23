@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 
 	public void start(Stage primaryStage) {
+		DataRetriever.getInstance().checkSaveData();
 		try {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("view/MainMenu.fxml"));
 			Scene scene = new Scene(root,500,550);

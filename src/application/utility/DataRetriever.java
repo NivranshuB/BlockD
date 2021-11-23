@@ -34,16 +34,21 @@ public class DataRetriever {
      * then it will set up the questionBank to consists of these saved questions, or else it will
      * set up the _questionBank to consists of new categories and questions.
      */
-    private void checkSaveData() {
-        String save_loc = System.getProperty("user.dir") + System.getProperty("file.separator") + "game_data";
-
+    public void checkSaveData() {
+        String save_loc = System.getProperty("user.dir") + System.getProperty("file.separator") + "save_data";
         File saveDirectory = new File(save_loc);
 
         //check if there exists a game_data containing leaderboard and game data
         if (Files.exists(saveDirectory.toPath())) {
-            File[] saveFile = saveDirectory.listFiles(); //save file is called 'save.dat'
+            String leaderboard_save_loc = save_loc + System.getProperty("file.separator") + "leaderboard_data" +
+                    System.getProperty("file.separator") + "leaderboard";
+            File leaderboardFile = new File(leaderboard_save_loc);
 
-            parseSavedData(saveFile[0]);
+            parseLeaderboardData(leaderboardFile);
+
+            //File[] saveFile = saveDirectory.listFiles();
+
+            //parseSavedData(saveFile[0]);
         }
     }
 
@@ -57,6 +62,32 @@ public class DataRetriever {
             while ((line = fileReader.readLine()) != null) {
                 //read in board line
                 //read in game other info
+            }
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parseLeaderboardData(File saveFile) {
+//        String name = saveFile.getName();
+//        String path = saveFile.getAbsolutePath();
+
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
+            System.out.println("Leaderboard saved data:");
+            String line;
+            while ((line = fileReader.readLine()) != null) {
+                System.out.println(line);
+                String[] entryDetails = line.split("\\|");
+                System.out.println("Number of parts = " + entryDetails.length);
+                System.out.println("Name is '" + entryDetails[0] + "'");
+                System.out.println("Score is '" + entryDetails[1] + "'");
+                System.out.println("Level is '" + entryDetails[2] + "'");
+                Leaderboard leaderboard = Leaderboard.getInstance();
+                LeaderboardEntry lineEntry = new LeaderboardEntry(entryDetails[0], Integer.valueOf(entryDetails[1]),
+                        Integer.valueOf(entryDetails[2]));
+                leaderboard.addLeaderboardEntry(lineEntry);
             }
             fileReader.close();
         } catch (IOException e) {
