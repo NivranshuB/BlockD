@@ -41,7 +41,9 @@ public class Timer {
 
 	private DecimalFormat formatter = new DecimalFormat("00");
 
-	private Timer() {}
+	private Timer() {
+		timeSeconds = startTime;
+	}
 
 	public static Timer getInstance() {
 		if (timerInstance == null) {
@@ -62,8 +64,6 @@ public class Timer {
 
 		timerField.setText("05:00");
 		timerField.setEditable(false);
-
-		timeSeconds = startTime;
 
 		//update timerLabel
 		timeline = new Timeline();
