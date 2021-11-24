@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class DataRetriever {
 
     private static DataRetriever instance;
-    private static final int ROUND_TIME = 10;
+    private static final int ROUND_TIME = 120;
 
     private DataRetriever() {
 

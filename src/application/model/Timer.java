@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 public class Timer {
 
-	private int startTime = 10;
+	private int startTime = 120;
 
 	private static Timer timerInstance;
 
