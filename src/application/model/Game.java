@@ -182,7 +182,18 @@ public class Game {
 	public boolean levelComplete() {
 		return targetScore.getScore() <= 0;
 	}
-	
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public void setTotalScore(Score score) {
+		this.totalScore = score;
+	}
+
+	public void setRegionScore(Score score) {
+		this.regionScore = score;
+	}
 }
 
 

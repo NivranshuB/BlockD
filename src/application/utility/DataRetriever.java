@@ -1,7 +1,6 @@
 package application.utility;
 
-import application.model.Game;
-import application.model.Leaderboard;
+import application.model.*;
 import application.model.game_objects.Block;
 import application.model.game_objects.BlockType;
 import application.model.game_objects.Board;
@@ -16,6 +15,7 @@ import java.nio.file.Paths;
 public class DataRetriever {
 
     private static DataRetriever instance;
+    private static final int ROUND_TIME = 10;
 
     private DataRetriever() {
 
@@ -40,11 +40,24 @@ public class DataRetriever {
 
         //check if there exists a game_data containing leaderboard and game data
         if (Files.exists(saveDirectory.toPath())) {
+
             String leaderboard_save_loc = save_loc + System.getProperty("file.separator") + "leaderboard_data" +
                     System.getProperty("file.separator") + "leaderboard";
             File leaderboardFile = new File(leaderboard_save_loc);
 
             parseLeaderboardData(leaderboardFile);
+
+            String game_save_loc = save_loc + System.getProperty("file.separator") + "game_data" +
+                    System.getProperty("file.separator") + "game_details";
+            File gameDetailsFile = new File(game_save_loc);
+
+            parseGameData(gameDetailsFile);
+
+            String board_save_loc = save_loc + System.getProperty("file.separator") + "game_data" +
+                    System.getProperty("file.separator") + "game_board";
+            File gameBoardFile = new File(board_save_loc);
+
+            parseBoardData(gameBoardFile);
 
             //File[] saveFile = saveDirectory.listFiles();
 
@@ -52,9 +65,53 @@ public class DataRetriever {
         }
     }
 
-    private void parseSavedData(File saveFile) {
-        String name = saveFile.getName();
-        String path = saveFile.getAbsolutePath();
+    private void parseGameData(File saveFile) {
+//        String name = saveFile.getName();
+//        String path = saveFile.getAbsolutePath();
+
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
+            String line;
+
+            line = fileReader.readLine();
+            int level = Integer.valueOf(getDetailsFromString(line));
+
+            line = fileReader.readLine();
+            int total = Integer.valueOf(getDetailsFromString(line));
+
+            line = fileReader.readLine();
+            int region = Integer.valueOf(getDetailsFromString(line));
+
+            line = fileReader.readLine();
+            int time = Integer.valueOf(getDetailsFromString(line));
+
+            line = fileReader.readLine();
+            int target = Integer.valueOf(getDetailsFromString(line));
+
+            if (time > 0 && time < ROUND_TIME) {
+                Game game = Game.getInstance();
+
+                game.setLevel(new Level(level));
+                game.setTotalScore(new Score(total));
+                game.setRegionScore(new Score(region));
+                game.getTimer().setStartTime(time);
+                game.setTargetScore(new TargetScore(target));
+                game.setStatus(true);
+            }
+
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDetailsFromString(String input) {
+        return input.split(":")[1];
+    }
+
+    private void parseBoardData(File saveFile) {
+//        String name = saveFile.getName();
+//        String path = saveFile.getAbsolutePath();
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
