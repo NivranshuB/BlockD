@@ -2,12 +2,15 @@ package application.model;
 
 import application.controller.ViewController;
 import application.model.game_objects.LeaderboardEntry;
+import application.utility.ConfirmBox;
+import application.utility.DataRetriever;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogEvent;
@@ -15,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -60,10 +64,10 @@ public class Timer {
 			timeline.stop();
 		}
 
-		timerField.setText("05:00");
-		timerField.setEditable(false);
-
 		timeSeconds = startTime;
+
+		timerField.setText(Timer.this.getTimeString(timeSeconds));
+		timerField.setEditable(false);
 
 		//update timerLabel
 		timeline = new Timeline();
@@ -183,5 +187,29 @@ public class Timer {
 
 		highScoreBox.setScene(scene);
 		highScoreBox.show();
+
+		highScoreBox.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(final WindowEvent windowEvent) {
+				highScoreBox.close();
+
+				String name = "Player Anon";
+
+				Game game = Game.getInstance();
+				Leaderboard leaderboard = Leaderboard.getInstance();
+
+				LeaderboardEntry newEntry = new LeaderboardEntry(name, game.getTotalScore().getScore(),
+						game.getLevel().getLevel());
+				leaderboard.addLeaderboardEntry(newEntry);
+				System.out.println("Added leaderboard entry: Name = " + newEntry.getName() + ", Score = " +
+						newEntry.getScore() + ", Level = " + newEntry.getLevel());
+				System.out.println(leaderboard);
+
+				try {
+					ViewController.getInstance().changeScene("/application/view/LeaderboardScreen.fxml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
