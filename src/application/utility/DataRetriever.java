@@ -51,21 +51,18 @@ public class DataRetriever {
                     System.getProperty("file.separator") + "game_details";
             File gameDetailsFile = new File(game_save_loc);
 
-            parseGameData(gameDetailsFile);
+            if (parseGameData(gameDetailsFile)) {
+                System.out.println("Reading game board saved data...");
+                String board_save_loc = save_loc + System.getProperty("file.separator") + "game_data" +
+                        System.getProperty("file.separator") + "game_board";
+                File gameBoardFile = new File(board_save_loc);
 
-            String board_save_loc = save_loc + System.getProperty("file.separator") + "game_data" +
-                    System.getProperty("file.separator") + "game_board";
-            File gameBoardFile = new File(board_save_loc);
-
-            parseBoardData(gameBoardFile);
-
-            //File[] saveFile = saveDirectory.listFiles();
-
-            //parseSavedData(saveFile[0]);
+                parseBoardData(gameBoardFile);
+            }
         }
     }
 
-    private void parseGameData(File saveFile) {
+    private boolean parseGameData(File saveFile) {
 //        String name = saveFile.getName();
 //        String path = saveFile.getAbsolutePath();
 
@@ -89,6 +86,7 @@ public class DataRetriever {
             int target = Integer.valueOf(getDetailsFromString(line));
 
             if (time > 0 && time < ROUND_TIME) {
+                System.out.println("Setting game statistics data from saved file");
                 Game game = Game.getInstance();
 
                 game.setLevel(new Level(level));
@@ -97,11 +95,17 @@ public class DataRetriever {
                 game.getTimer().setStartTime(time);
                 game.setTargetScore(new TargetScore(target));
                 game.setStatus(true);
+
+                fileReader.close();
+                return true;
             }
 
             fileReader.close();
+            return false;
+
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -110,16 +114,47 @@ public class DataRetriever {
     }
 
     private void parseBoardData(File saveFile) {
-//        String name = saveFile.getName();
-//        String path = saveFile.getAbsolutePath();
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
             String line;
+
+            int rowCounter = 0;
+            Board savedGameBoard = new Board(15, 10);
+
             while ((line = fileReader.readLine()) != null) {
-                //read in board line
-                //read in game other info
+                String[] blocksInLineArray = line.split("(?!^)");
+
+                System.out.println("\nLine " + rowCounter + " is:");
+                for (int columnCounter = 0; columnCounter < blocksInLineArray.length; columnCounter++) {
+                    System.out.print(blocksInLineArray[columnCounter]);
+                    if (blocksInLineArray[columnCounter].equals("r")) {
+                        savedGameBoard.setBlockAtPosition(BlockType.Red, rowCounter, columnCounter);
+                    } else if (blocksInLineArray[columnCounter].equals("g")) {
+                        savedGameBoard.setBlockAtPosition(BlockType.Green, rowCounter, columnCounter);
+                    } else if (blocksInLineArray[columnCounter].equals("y")) {
+                        savedGameBoard.setBlockAtPosition(BlockType.Yellow, rowCounter, columnCounter);
+                    } else if (blocksInLineArray[columnCounter].equals("_")) {
+                        savedGameBoard.setBlockAtPosition(null, rowCounter, columnCounter);
+                    }
+                }
+
+                if (blocksInLineArray.length < 10) {
+                    for (int i = blocksInLineArray.length; i < 10; i++) {
+                        savedGameBoard.setBlockAtPosition(null, rowCounter, i);
+                    }
+                }
+
+                rowCounter++;
             }
+
+            Game game = Game.getInstance();
+            game.setBoard(savedGameBoard);
+            game.updateRegionScore();
+
+            System.out.println("Using saved board");
+            System.out.println(savedGameBoard);
+
             fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();

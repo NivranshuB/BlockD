@@ -38,12 +38,20 @@ public class Board {
 			x.toggleSelected();
 		}
 	}
+
+	public void setBlockAtPosition(BlockType blockType, int row, int column) {
+		if (blockType == null) {
+			blockArray[row][column] = null;
+		} else {
+			blockArray[row][column] = new Block(blockType, row, column);
+		}
+	}
 	
 	public String toString() {
 		String boardStr = "";
 		
-		for (int i = 0; i < blockArray[0].length; i++) {
-			for (int j = 0; j < blockArray.length; j++) {
+		for (int i = 0; i < blockArray.length; i++) {
+			for (int j = 0; j < blockArray[0].length; j++) {
 				if (i == cursor.yPos && j == cursor.xPos) {
 					boardStr = boardStr + " " + "_";
 				} else if (blockArray[i][j] == null) {
