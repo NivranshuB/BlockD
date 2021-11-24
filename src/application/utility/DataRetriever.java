@@ -91,7 +91,7 @@ public class DataRetriever {
 
                 game.setLevel(new Level(level));
                 game.setTotalScore(new Score(total));
-                game.setRegionScore(new Score(region));
+                //game.setRegionScore(new Score(region));
                 game.getTimer().setStartTime(time);
                 game.setTargetScore(new TargetScore(target));
                 game.setStatus(true);
@@ -118,6 +118,12 @@ public class DataRetriever {
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
             String line;
+            line = fileReader.readLine();
+
+            int cursorRow = Integer.valueOf(getDetailsFromString(line));
+
+            line = fileReader.readLine();
+            int cursorColumn = Integer.valueOf(getDetailsFromString(line));
 
             int rowCounter = 0;
             Board savedGameBoard = new Board(15, 10);
@@ -148,6 +154,10 @@ public class DataRetriever {
                 rowCounter++;
             }
 
+            savedGameBoard.setCursorY(cursorRow);
+            savedGameBoard.setCursorX(cursorColumn);
+            savedGameBoard.updateSelectedRegion();
+
             Game game = Game.getInstance();
             game.setBoard(savedGameBoard);
             game.updateRegionScore();
@@ -169,6 +179,7 @@ public class DataRetriever {
             BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
             System.out.println("Leaderboard saved data:");
             String line;
+
             while ((line = fileReader.readLine()) != null) {
                 System.out.println(line);
                 String[] entryDetails = line.split("\\|");
@@ -249,6 +260,9 @@ public class DataRetriever {
         try {//Write details of the game board
             FileWriter boardWriter = new FileWriter(game_save_loc + System.getProperty("file.separator")
                     + "game_board");
+
+            boardWriter.write("Cursor Row:" + gameBoard.getCursorY() + "\n");
+            boardWriter.write("Cursor Column:" + gameBoard.getCursorX() + "\n");
 
             for (int i = 0; i < blocks.length; i++) {
                 for (int j = 0; j < blocks[0].length; j++) {

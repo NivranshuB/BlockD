@@ -2,10 +2,10 @@ package application.model.game_objects;
 
 public class Cursor {
 
-	int xPos;
-	int yPos;
-	int maxX;
-	int maxY;
+	int xPos;//column
+	int yPos;//row
+	int maxX;//max column position
+	int maxY;//max row position
 	Region region;
 	
 	public Cursor(int height, int width) {
@@ -45,5 +45,13 @@ public class Cursor {
 		if (yPos - 1 >= 0) {
 			yPos--;
 		}
+	}
+
+	public void setyPos(int y) {
+		yPos = y;
+	}
+
+	public void setxPos(int x) {
+		xPos = x;
 	}
 }

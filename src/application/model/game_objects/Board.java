@@ -81,7 +81,7 @@ public class Board {
 		this.updateSelectedRegion();
 	}
 	
-	private void updateSelectedRegion() {
+	public void updateSelectedRegion() {
 		for (Block x : selectedRegion.getBlocks()) {
 			x.toggleSelected();
 		}
@@ -90,11 +90,17 @@ public class Board {
 			x.toggleSelected();
 		}
 	}
-	
+
+	/**
+	 * @return column position of cursor
+	 */
 	public int getCursorX() {
 		return cursor.getX();
 	}
-	
+
+	/**
+	 * @return row position of cursor
+	 */
 	public int getCursorY() {
 		return cursor.getY();
 	}
@@ -250,5 +256,12 @@ public class Board {
 		
 		return true;
 	}
-	
+
+	public void setCursorY(int cursorRow) {
+		cursor.setyPos(cursorRow);
+	}
+
+	public void setCursorX(int cursorColumn) {
+		cursor.setxPos(cursorColumn);
+	}
 }
